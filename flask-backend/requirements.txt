@@ -1,0 +1,14 @@
+flask
+flask-sqlalchemy
+flask-bcrypt
+flask-jsonschema-validator
+flask-login
+flask-admin
+flask-mail
+requests
+
+numpy
+spacy
+#!python -m spacy download en_core_web_sm
+flair
+scipy

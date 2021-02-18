@@ -1,0 +1,25 @@
+
+##  About  ##
+
+FlipFacts ist eine Seite, auf denen Nutzer short statements posten und bewerten können. Die Bewertung geschieht allerdings nicht ohne Weiteres: Für jede positive oder negative Bewertung müssen Nutzer eine wissenschaftliche Quelle liefern, die den Beitrag, den sie bewerten wollen, untermauert oder ihm wiederspricht.
+
+Ursprünglich sollte ein Werkzeug geschaffen werden, mit dessen Hilfe man schnell seriöse Quellen zu wichtigen, alltagssprachlichen Aussagen nachschlagen kann. Es wurde jedoch schnell deutlich, dass die meisten Dinge sehr sehr sehr viel komplizierter sind als man zunächst annehmen würde und eine binäre Einteilung in wahr oder falsch nicht ohne Weiteres möglich ist. Stattdessen eine Seite zu schaffen, auf der allerlei Gedanken und Beiträge einer wissenschaftlichen Bewertung unterzogen werden, erlaubt es Nutzern ihre Ideen auch ohne wissenschaftliches Hintergrundwissen einzubringen. Und zu erkennen dass ein Gedanke falsch ist, ist mindestens geanu so wertvoll wie Bestätigung zu finden - zumindest ist das ein Einstellung den FlipFacts verfolgen möchte. 
+
+Sind Dinge zu mehrdimensional, um sie ein einer einzigen Aussage darzustellen, so erlaubt das Abtauchen in die angegebenen Quellen und das Anzeigen themathisch relevanter Assumptions einen tieferen Einblick in das Thema. Eine semantische Suche erlaubt das Finden von Aussagen, auch ohne den genauen Wortlaut zu kennen. Sollten Quellen nicht zu den Aussagen passen oder die Aussage selbst ist schwammig und irreführend, so können diese zur Überprüfung durch einen Moderator markiert werden. Mal schauen ob das so klappt...
+
+## Data Stuff ##
+
+FlipFacts vertritt die Werte der Zensurfreiheit, Anonymität und öffentlichem Zugang zu Informationen im Internet. Wir versuchen daher möglichst wenige, personenspezifische Daten zu speichern. 
+
+Um das Erstellen und Nutzen von Benutzerkonten zu ermöglichen, speichern wir bei der Registrierung Nutzernamen und E-Mail Adresse und das Datum der Registrierung. Passwörter werden niemals im Klartext gespeichert oder angezeigt. Zur Passwörtprüfung wird ein Hashing Verfahren verwendet.
+
+Bei dem Erstellen von Assumptions oder dem Hinzufügen von Quellen wird der ausführende Nutzer, das aktuelle Datum und der Inhalt der Assumption bzw. der Quelle persistiert.
+
+Um die Nutzerfreundlichkeit der Seite zu evaluieren, können kürzlich durchgeführte Anfragen und Suchbegriffe dem Administrator angezeigt werden. Sie werden allerdings nie mit spezifischen Nutzerkonten in Verbindung gebracht oder langfristig gespeichert und werden regelmäßig gelöscht.
+
+## Validity Score ##
+
+Häufig gibt es viele quellen zu einem thema die verschiedene blickwinkel beleuchten. Allein die anzahl der quellen sagt daher gegebenenfalls wenig über die Qualität einer Aussage aus. Um das Auszugleichen wird der validity score auf Basis aller angebenen Quellen berechnet und deren jeweiliger citation count. Die Anzahl der citations gibt an wie häufig die Quelle in anderen wissenschaftlichen Arbeiten referenziert wurde und gibt einen Eindruck über die wissenschaftliche Relevanz der Quelle. 
+
+## Integrität ##
+Um zu verhindern dass unseriöse Quellen oder plakative interpretationen aus der tageszeitung zum untermauen von aussagen verwendet werden, müssen nutzer beim hinzufügen einer quelle einen eindeutigen identifikationscode einer wissenschaftlichen publikation angeben. dieser wird vom server genau unter die lupe genommen bevor die quelle dem statement hinzugefügt wird. welche identifikationscode unterstützt werden kannst du sehen, wenn du eine quelle hinzufügst. dennoch kann es sein dass quellen von nutzern falsch interpretiert wurden oder anderweitig nicht zur darüberstehenden aussage passen. in diesem fall sind nutzer dazu angeleitet die quelle einem moderator zu melden. 

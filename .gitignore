@@ -1,28 +1,10 @@
-
-# dependencies
-/react-frontend/node_modules
-.pnp
-.pnp.js
-
-# testing
-/react-frontend/coverage
-
-# production
-/react-frontend/build
-
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-/react-frontend/npm-debug.log*
-/react-frontend/yarn-debug.log*
-/react-frontend/yarn-error.log*
-
-
-#
-flask-backend/flipfacts/config.py
-flask-backend/flipfacts/sqlite.db
+.vscode/**
 **/__pycache__/
+**/config.py
+flask-backend/flipfacts/sqlite.db
+react-frontend-dev/.eslintcache
+react-frontend/package-lock.json
+react-frontend/yarn.lock
+react-frontend/node_modules
+react-frontend/build
+react-frontend/coverage
