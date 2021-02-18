@@ -1,10 +1,15 @@
+# Misc
 .vscode/**
+
+# Flask
+flask-backend/flipfacts/sqlite.db
 **/__pycache__/
 **/config.py
-flask-backend/flipfacts/sqlite.db
-react-frontend-dev/.eslintcache
+
+# React
+react-frontend/.eslintcache
 react-frontend/package-lock.json
 react-frontend/yarn.lock
 react-frontend/node_modules
 react-frontend/build
-react-frontend/coverage
+react-frontend/coverageg
