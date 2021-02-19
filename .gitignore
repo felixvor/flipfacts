@@ -1,5 +1,6 @@
 # Misc
 .vscode/**
+**.log
 
 # Flask
 flask-backend/flipfacts/sqlite.db
@@ -13,3 +14,5 @@ react-frontend/yarn.lock
 react-frontend/node_modules
 react-frontend/build
 react-frontend/coverageg
+
+

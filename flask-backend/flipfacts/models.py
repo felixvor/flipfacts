@@ -3,6 +3,10 @@ from flask_login import UserMixin #will give me is_authenticated and stuff
 from datetime import datetime
 from flipfacts import db, login_manager
 
+import logging
+
+fflog = logging.getLogger("fflog")
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -37,7 +41,7 @@ class Assumption(db.Model):
     text = db.Column(db.String(512), nullable=False, unique=True)
     views = db.Column(db.Integer, nullable=False, default=1)
 
-    embedding = db.Column(db.String(420), nullable=True)
+    embedding = db.Column(db.String(16384), nullable=True)
     embedding_hash = db.Column(db.String(42), nullable=True)
     
     sources = db.relationship("Source", backref="assumption", lazy=True)
@@ -92,7 +96,7 @@ def create_db(db):
     #
     admin_account = User.query.filter_by(id=1).first()
     if not admin_account: #this means database is empty. add initial stuff:
-        print("Writing initial data to empty database.")
+        fflog.info("Writing initial data to empty database.")
 
         user = User(username="Admin", email="admin@bratp.fun", password="$2b$12$jiPGO.uC1Sxg5OyMdKvs7.HhNzZIP52i.9y4q.i/anQX.MnYO8FTm", role="admin")
         db.session.add(user)
@@ -177,4 +181,4 @@ def create_db(db):
 
         db.session.commit()
 
-        print("DB initialized.")
+        fflog.info("DB initialized.")
