@@ -7,10 +7,9 @@ flask-backend/flipfacts/sqlite.db
 **/config.py
 
 # React
-react-frontend/.eslintcache
+**/.eslintcache
 react-frontend/package-lock.json
 react-frontend/yarn.lock
 react-frontend/node_modules
 react-frontend/build
 react-frontend/coverageg
-react-frontend/.eslintcache
