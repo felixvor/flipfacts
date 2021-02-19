@@ -1,7 +1,6 @@
 
 from flask_login import UserMixin #will give me is_authenticated and stuff
 from datetime import datetime
-
 from flipfacts import db, login_manager
 
 @login_manager.user_loader
@@ -28,7 +27,7 @@ class User(db.Model, UserMixin):
         return self.role == "admin"
 
     def __repr__(self):
-        return f"User ID {self.id}({self.username}', '{self.email}')"
+        return f"User ID {self.id}('{self.username}','{self.email}')"
 
 class Assumption(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -178,4 +177,4 @@ def create_db(db):
 
         db.session.commit()
 
-        print("Done.")
+        print("DB initialized.")
