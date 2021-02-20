@@ -37,7 +37,7 @@ const Logout = (props) => {
    })
     
   return (
-    <Container>
+    <Container style={{"paddingTop":"85px"}}>
         <h4>Logging Out...</h4>
     </Container>
   );

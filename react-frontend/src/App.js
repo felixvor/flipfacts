@@ -17,6 +17,7 @@ import Register from "./components/Register/Register"
 import Claim from "./components/Claim/Claim"
 import CreateNew from "./components/CreateNew/CreateNew"
 import Account from "./components/Account/Account"
+import Recover from "./components/Recover/Recover"
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
 import About from './components/About/About';
@@ -124,7 +125,7 @@ export class App extends Component {
                 <Browse/>
               </Route>
 
-              <Route path="/search/:b64query?" render={(routeProps) => <Search {...routeProps}/>} />
+              <Route path="/search/:b64query?" render={(routeProps) => <Search {...routeProps} loggedIn={this.state.loggedIn}/>} />
 
               
               <Route path="/claims/:id" render={(routeProps) => <Claim {...routeProps} loggedIn={this.state.loggedIn}/>} />
@@ -145,7 +146,9 @@ export class App extends Component {
                 {this.state.loggedIn && <Account/>}
                 {!this.state.loggedIn && <PleaseLogin/>}
               </Route>
-
+              <Route path="/recover" exact>
+                <Recover/>
+              </Route>
               <Route path="/about" exact>
                 <About/>
               </Route>

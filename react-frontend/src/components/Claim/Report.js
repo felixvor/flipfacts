@@ -1,6 +1,4 @@
-import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, Link, makeStyles, TextField, Typography } from "@material-ui/core";
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import CloseIcon from '@material-ui/icons/Close';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@material-ui/core";
 import axios from "axios";
 import React, { useState } from "react"
 
@@ -41,7 +39,7 @@ const Report = (props) =>{
         })
         .catch((error) => {
           setReportWasSent(true)
-          if(error.response.status == 500){
+          if(error.response.status === 500){
             setReportResponse(`Something went wrong. Report was not received. Please contact the administrator.`)
           }else{
             setReportResponse(`Something went wrong. Error Code ${error.response.status}: ${error.response.data}`)

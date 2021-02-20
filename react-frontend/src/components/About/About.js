@@ -50,7 +50,7 @@ const About = (props) => {
                 0
             );
         }
-    }, [pathname]) // do this on route change
+    }, [pathname, hash]) // do this on route change
         
     return (
         <div>    
@@ -129,11 +129,11 @@ const About = (props) => {
                     <Grid item xs={12}>
                         <Typography variant="h2" id={"datausage"} className={classes.headline}>Data Usage</Typography>
                         <Typography className={classes.blocktext}>
-                            FlipFacts represents the values of freedom from censorship, anonymity and public access to information on the Internet. We therefore try to store as little personal data as possible. 
+                            FlipFacts represents the values of anonymity and public access to information on the Internet. We therefore try to store as little personal data as possible. 
                         </Typography>
                         <br/>
                         <Typography className={classes.blocktext}>
-                            To enable the creation and use of user accounts, we store username and email address and the date of registration. I keep saying <i>we</i> but I am actually just one guy... Anyways, passwords are never stored or displayed in plain text. A hashing process is used to check passwords on login.
+                            To enable the creation and use of accounts, we store username and email address and the date of registration. I keep saying <i>we</i> but I am actually just one guy... Anyways, passwords are never stored or displayed in plain text. A hashing process is used to check passwords on login.
                         </Typography>
                         <br/>
                         <Typography className={classes.blocktext}>
