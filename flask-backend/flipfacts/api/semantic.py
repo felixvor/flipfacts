@@ -47,6 +47,10 @@ class Semantic():
             if t.is_punct:
                 continue
             important_tokens.add(str(t.lemma_))
+
+        if len(important_tokens) <= 0:
+            return None
+
         #fflog.info(" ".join(sorted(important_tokens)))
         sentence = Sentence(" ".join(sorted(important_tokens))) #dont sort doesnt matter on average
         fasttext_embedding.embed(sentence)
@@ -85,6 +89,9 @@ class Semantic():
         if num_results < 2:
             return "num results can not be less than 2"
         query_vec = self.embed(query)
+        if query_vec is None:
+            return []
+        
         query_results = cKDTree(self.THE_MATRIX).query(query_vec, k=num_results)
 
         vector_indexes = query_results[1] #can only iterate of k>1

@@ -303,7 +303,7 @@ def register():
 
     #sendMail(recipient = userdata["email"], recipient_name = userdata["name"], mail_verification_code = mail_verification_code)
     
-    msg = Message("Verify your ClaimRate Account!", recipients=[userdata["email"]])
+    msg = Message("Verify your FlipFacts.net Account", recipients=[userdata["email"]])
     msg.body = f"""
         Hello {userdata["name"]},
 
