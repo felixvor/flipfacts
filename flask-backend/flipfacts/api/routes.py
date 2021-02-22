@@ -109,9 +109,12 @@ def search():
     userdata = request.json
     search_results = []
     if userdata["searchtype"] == "semantic":
-        similars = semantic.nearest_documents(userdata["query"], 20)
-        for sim in similars:
-            search_results.append(assumption2Object(sim))
+        doc_ids = semantic.search(userdata["query"], max_results=20, threshold=0.05)
+        for id in doc_ids:
+            result = Assumption.query.filter_by(id=id).first()
+            if result is None:
+                continue
+            search_results.append(assumption2Object(result))
     elif userdata["searchtype"] == "basic":
         results = index.search(userdata["query"])
         for res in results:
@@ -134,10 +137,11 @@ def get_assumption(id):
 
     obj = assumption2Object(assumption, full_sources=True)
 
-    similars = semantic.nearest_documents(assumption.text, 4)[1:]
+    similar_ids = semantic.search(assumption.text, max_results=4, threshold=0)[1:]
     similar_assumptions = []
-    for sim in similars:
-        similar_assumptions.append(assumption2Object(sim))
+    for id in similar_ids:
+        assumption = Assumption.query.filter_by(id=id).first()
+        similar_assumptions.append(assumption2Object(assumption))
     #return json.dumps({"assumption":obj})
     fflog.info(f"  > 200 found assumption and {len(similar_assumptions)} similar")
     return json.dumps({"assumption":obj,"similarPosts":similar_assumptions}), 200
@@ -156,16 +160,13 @@ def new_assumption():
         db.session.add(assumption)
         db.session.flush()
         new_id += str(assumption.id)
-        semantic.update_vector_matrix(new_id)
-        index.update_search_index(new_id)
+        semantic.add_document(assumption.id, assumption.text)
         db.session.commit()
     except Exception as e:
         fflog.info(e)
         fflog.info("  > 503 something went wrong when trying to add the assumption to the database")
         return "Something went wrong", 500
     fflog.info(f"  > 200 source id {new_id} added")
-
-
     return new_id, 200
 
 @api.route("/api/report", methods=["POST"])

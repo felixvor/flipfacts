@@ -2,7 +2,7 @@
 import logging
 
 fflog = logging.getLogger("fflog")
-fflog.setLevel(logging.INFO)
+fflog.setLevel(logging.DEBUG)
 
 file = logging.FileHandler("flipfacts_server.log")
 file.setLevel(logging.DEBUG)
