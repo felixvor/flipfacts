@@ -101,20 +101,34 @@ class Semantic():
             score = 1-query_results[0][i]
             if np.isinf(score) or np.isnan(score):
                 continue
-            if score < 0:
+            if score < -0.8:
                 continue
 
             vector=self.THE_MATRIX[vi]
-            hashes.append(self.hash_vector(vector))
+            vector_hash = self.hash_vector(vector)
+            if vector_hash not in hashes:
+                hashes.append(vector_hash)
 
-        
         results = []
         for hash in hashes:
             assumptions = self.Assumption.query.filter_by(embedding_hash=hash).all()
             # unlikley that two assumptions produce same embedding but hey...
+            # ok if they do then they will also be found multiple times they might duplicate here...
+            # but i cant just skip i need to get every post once...
+            # so find all docs for any hash, but dont look for the same hash twice (adding if vector_hash not in hashes: above)
             for ass in assumptions:
                 results.append(ass)
         return results
+
+    def update_vector_matrix(self, assumption_id):
+        assumption = self.Assumption.query.filter_by(id=assumption_id).first()
+        embedding = self.embed(assumption.text)
+        assumption.embedding = self.vec2string(embedding)
+        assumption.embedding_hash = self.hash_vector(embedding)
+        self.db.session.commit()
+        print(self.THE_MATRIX.shape)
+        self.THE_MATRIX = np.append(self.THE_MATRIX, [embedding], axis=0)
+        print(self.THE_MATRIX.shape)
 
 
     def init_app(self, app):

@@ -6,7 +6,7 @@ flask-login
 flask-admin
 flask-mail
 requests
-
+Whoosh
 numpy
 spacy
 #!python -m spacy download en_core_web_sm

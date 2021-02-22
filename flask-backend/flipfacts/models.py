@@ -60,10 +60,12 @@ class Source(db.Model):
     posted_by = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     is_positive = db.Column(db.Boolean, nullable=False)
-    identifier = db.Column(db.String(128), unique=True, nullable=False)
-    title = db.Column(db.String(128), unique=True, nullable=False)
+
+    # TODO: Place on own table where unique=true and migrate:
+    identifier = db.Column(db.String(128), nullable=False)
+    title = db.Column(db.String(128), nullable=False)
     num_citations = db.Column(db.Integer, nullable=False)
-    url = db.Column(db.String(350), unique=True, nullable=False)
+    url = db.Column(db.String(350), nullable=False)
 
     reports = db.relationship("Report", backref="source", lazy=True)
 

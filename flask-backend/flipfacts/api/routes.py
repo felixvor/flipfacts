@@ -6,7 +6,7 @@ import requests
 from flask import request, Blueprint, session, redirect, url_for
 from flask_login import login_user, current_user, logout_user
 from flask_mail import Message
-from flipfacts import db, semantic, bcrypt, mail
+from flipfacts import db, semantic, index, bcrypt, mail
 from flipfacts.models import User, Assumption, Source, Report
 from flipfacts.api import validate
 
@@ -99,18 +99,28 @@ def add_source(id):
         fflog.info("  > 503 something went wrong when trying to add the source to the database")
         fflog.info(e)
         return "Something went wrong", 500
+        
+    index.update_search_index(assumption.id)
     fflog.info("  > 200 source added")
     return "source added", 200
 
 @api.route("/api/search", methods=["POST"])
 def search():
     userdata = request.json
-    similars = semantic.nearest_documents(userdata["query"], 20)
-    similar_assumptions = []
-    for sim in similars:
-        similar_assumptions.append(assumption2Object(sim))
-    fflog.info(f"  > 200 found {len(similar_assumptions)} results")
-    return json.dumps(similar_assumptions), 200
+    search_results = []
+    if userdata["searchtype"] == "semantic":
+        similars = semantic.nearest_documents(userdata["query"], 20)
+        for sim in similars:
+            search_results.append(assumption2Object(sim))
+    elif userdata["searchtype"] == "basic":
+        results = index.search(userdata["query"])
+        for res in results:
+            print("Single basic result:")
+            print(res)
+            print(type(res))
+            search_results.append(assumption2Object(res))
+    fflog.info(f"  > 200 found {len(search_results)} results")
+    return json.dumps(search_results), 200
 
 @api.route("/api/assumption/<int:id>", methods=["GET"])
 def get_assumption(id):
@@ -146,12 +156,16 @@ def new_assumption():
         db.session.add(assumption)
         db.session.flush()
         new_id += str(assumption.id)
+        semantic.update_vector_matrix(new_id)
+        index.update_search_index(new_id)
         db.session.commit()
     except Exception as e:
         fflog.info(e)
         fflog.info("  > 503 something went wrong when trying to add the assumption to the database")
         return "Something went wrong", 500
     fflog.info(f"  > 200 source id {new_id} added")
+
+
     return new_id, 200
 
 @api.route("/api/report", methods=["POST"])

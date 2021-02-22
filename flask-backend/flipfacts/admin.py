@@ -13,6 +13,7 @@ from flask_login import current_user
 
 
 class SecureModelView(ModelView):
+    column_display_pk = True
     column_exclude_list = ['password', "embedding"]
     form_excluded_columns  = ['password',]
 
@@ -24,6 +25,18 @@ class SecureModelView(ModelView):
 
     def inaccessible_callback(self, name, **kwargs):
         return redirect(url_for('/'))
+
+class UserModelView(SecureModelView):
+    column_searchable_list = ('username', 'email')
+
+class AssumptionModelView(SecureModelView):
+    column_searchable_list = ('text', "user_id")
+
+class SourceModelView(SecureModelView):
+    column_searchable_list = ('title', 'assumption_id')
+
+class ReportModelView(SecureModelView):
+    column_searchable_list = ('user_comment', 'posted_by', "assumption_id", "source_id")
 
 # dbadmin.add_view(SecureModelView(User, db.session))
 # dbadmin.add_view(SecureModelView(Assumption, db.session))

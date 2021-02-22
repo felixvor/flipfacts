@@ -4,11 +4,12 @@ import Container from '@material-ui/core/Container';
 
 import axios from 'axios';
 import { useHistory, useParams } from "react-router-dom";
-import { Divider, Grid, Link, Paper, Typography } from '@material-ui/core';
+import { Divider, FormControlLabel, Grid, Link, Paper, Typography } from '@material-ui/core';
 import SearchBar from '../utilComponents/SearchBar';
 import AssumptionCard from '../utilComponents/AssumptionCard';
 
 import InfoIcon from '@material-ui/icons/Info';
+import Switch from '@material-ui/core/Switch';
 import LoginOrRegister from '../utilComponents/LoginOrRegister';
 
 
@@ -51,6 +52,12 @@ const Search = (props) => {
     const query = b64query?atob(b64query):null
 
     const [searchResults, setSearchResults] = useState(null)
+    const [checkedSemantic, setCheckedSemantic] = useState(false)
+
+    const handleCheck = () =>{
+      setSearchResults(null)
+      setCheckedSemantic(!checkedSemantic)
+    }
 
     useEffect(() => {
         if (query === null){
@@ -60,7 +67,7 @@ const Search = (props) => {
         axios({
             method: 'post',
             url: `/api/search`,
-            data: JSON.stringify({"query":query}),
+            data: JSON.stringify({"query":query, "searchtype":checkedSemantic?"semantic":"basic"}),
             headers: {'Content-Type': 'application/json' }
             }).then( (response)  => {
                 console.log(response.data)
@@ -69,7 +76,7 @@ const Search = (props) => {
             .catch((error) => {
               console.log(error.response)
             });
-    }, [query])
+    }, [query, checkedSemantic])
 
     const history = useHistory(); 
     const [loginOrRegisterShow, setLoginOrRegisterShow] = useState(false)
@@ -95,22 +102,42 @@ const Search = (props) => {
           <Container maxWidth="md" style={{"paddingTop":"75px"}}>
             <Grid container justify="center">
               <Typography component="h1" variant="h4" align="center" color="textPrimary" gutterBottom>
-                Semantic Search:
+                Assumption Search:
               </Typography>
               <Grid item md={9} xs={11} style={{"paddingBottom":"15px"}}>
                 <SearchBar initialValue={query}/>
               </Grid>
+              
+              <Grid item sm={12}>
+              <FormControlLabel
+                    control={
+                      <Switch
+                        checked={checkedSemantic}
+                        onChange={handleCheck}
+                        color="primary"
+                        name="checked"
+                        inputProps={{ 'aria-label': 'primary checkbox' }}
+                      />
+                    }
+                    label="Enable Semantic Search"
+                  />
+                  {/* <InfoIcon fontSize="small" /> */}
+              </Grid>
 
-              {searchResults !== null && searchResults.length > 0 &&
+               {checkedSemantic &&
                 <Grid item sm={7}>
                   <Paper elevation={1} style={{"padding":"8px"}}>
                     <InfoIcon fontSize="small" />
                     <Typography variant="caption text">
-                        Results are ordered by thematic similarity. If you dont't find what your are looking for you can always <Link className={classes.newSourceLink} onClick={()=>newPostClickHandler()}>add your own assumption</Link> to the list.
+                      <u>Semantic Search:</u>
+                    </Typography>
+                    <br/>
+                    <Typography variant="caption text">
+                        Existing posts are ordered by thematic relevance. This might also show posts that are only slightly related to any of your search inputs. If you don't find what you are looking for you can always <Link className={classes.newSourceLink} onClick={()=>newPostClickHandler()}>add a new assumption</Link> to the list.
                     </Typography>
                   </Paper>
                   <br/>
-              </Grid>}
+              </Grid>} 
 
             </Grid>      
           </Container>

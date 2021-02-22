@@ -2,7 +2,7 @@
 import logging
 
 fflog = logging.getLogger("fflog")
-fflog.setLevel(logging.DEBUG)
+fflog.setLevel(logging.INFO)
 
 file = logging.FileHandler("flipfacts_server.log")
 file.setLevel(logging.DEBUG)
@@ -11,7 +11,7 @@ file.setFormatter(fileformat)
 fflog.addHandler(file)
 
 stream = logging.StreamHandler()
-stream.setLevel(logging.WARNING)
+stream.setLevel(logging.DEBUG)
 streamformat = logging.Formatter("%(asctime)s:%(levelname)s:%(message)s")
 stream.setFormatter(streamformat)
 fflog.addHandler(stream)
@@ -21,7 +21,8 @@ fflog.info("Starting Server ...")
 
 
 from flipfacts.api import semantic
-from flipfacts.admin import SecureModelView
+from flipfacts.api import index
+from flipfacts.admin import AssumptionModelView, SourceModelView, UserModelView, ReportModelView
 from flask import Flask, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -38,6 +39,7 @@ login_manager = LoginManager()
 dbadmin = Admin(name='Administration', template_mode='bootstrap3')
 mail = Mail()
 semantic = semantic.Semantic()
+index = index.Index()
 
 
 
@@ -58,15 +60,17 @@ def create_app(config_class=Config):
         create_db(db)
 
     semantic.init_app(app)
+
+    index.init_app(app)
     
     from flipfacts.api.routes import api
     app.register_blueprint(api)
     
     from flipfacts.models import User, Assumption, Source, Report
-    dbadmin.add_view(SecureModelView(User, db.session))
-    dbadmin.add_view(SecureModelView(Assumption, db.session))
-    dbadmin.add_view(SecureModelView(Source, db.session))
-    dbadmin.add_view(SecureModelView(Report, db.session))
+    dbadmin.add_view(UserModelView(User, db.session))
+    dbadmin.add_view(AssumptionModelView(Assumption, db.session))
+    dbadmin.add_view(SourceModelView(Source, db.session))
+    dbadmin.add_view(ReportModelView(Report, db.session))
 
     @app.before_request
     def log_request():
@@ -87,5 +91,5 @@ def create_app(config_class=Config):
         if request.path.startswith('/admin/'):
             if (not current_user.is_authenticated) or (not current_user.is_administrator):
                 return redirect('/')
-
+   
     return app
