@@ -16,3 +16,4 @@ react-frontend/build
 react-frontend/coverageg
 
 
+flask-backend/search_index/*
