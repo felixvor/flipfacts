@@ -3,6 +3,8 @@ import math
 import json
 import requests
 
+from sqlalchemy import func
+
 from flask import request, Blueprint, session, redirect, url_for
 from flask_login import login_user, current_user, logout_user
 from flask_mail import Message
@@ -195,6 +197,9 @@ def report():
 
 @api.route("/api/assumption/recent", methods=["GET"])
 def get_recent():
+
+    #assumptions = db.session.query(Assumption).join(Source).group_by(Assumption.id).order_by(func.max(Source.date_posted).desc())
+
     sources = db.session.query(Source).order_by(Source.date_posted.desc()).limit(25).all()
     source_iter = iter(sources)
         
@@ -214,10 +219,20 @@ def get_recent():
     return json.dumps(result), 200
 
 
-@api.route("/api/assumption/top/<int:page>", methods=["GET"])
+@api.route("/api/assumption/browse/<int:page>", methods=["GET"])
 def get_top(page):
-    per_page = 4
-    assumptions = Assumption.query.order_by(Assumption.views.desc()).paginate(page,per_page,error_out=False)
+    per_page = 5
+    assumptions = []
+    print(request.args["orderby"])
+    if request.args["orderby"] == "views":
+        assumptions = Assumption.query.order_by(Assumption.views.desc()).paginate(page,per_page,error_out=False)
+    elif request.args["orderby"] == "new":
+        assumptions = Assumption.query.order_by(Assumption.date_posted.desc()).paginate(page,per_page,error_out=False)
+    elif request.args["orderby"] == "updated":
+        assumptions = db.session.query(Assumption).outerjoin(Source).group_by(Assumption.id).order_by(func.max(Source.date_posted).desc()).paginate(page,per_page,error_out=False)
+    elif request.args["orderby"] == "sources":
+        assumptions = db.session.query(Assumption).outerjoin(Source).group_by(Assumption.id).order_by(func.count(Source.id).asc()).paginate(page,per_page,error_out=False)
+
     results = []
     for assumption in assumptions.items:
         obj = assumption2Object(assumption, full_sources=False)

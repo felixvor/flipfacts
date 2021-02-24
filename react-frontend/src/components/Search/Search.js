@@ -90,7 +90,7 @@ const Search = (props) => {
     }
 
   return (
-  <Container component="main" maxWidth="md">
+  <Container component="main" maxWidth="md" style={{"min-height":"73vh"}}>
         <LoginOrRegister
           open={loginOrRegisterShow}
           title={<>Account needed</>}
@@ -134,7 +134,6 @@ const Search = (props) => {
                     <br/>
                     <Typography variant="caption text">
                         Results are filtered less but are ordered by thematic similarity.
-                        {/* If results are only slighty related you can try elaborate your query or you can <Link className={classes.newSourceLink} onClick={()=>newPostClickHandler()}>add a new assumption</Link> yourself. */}
                     </Typography>
                     <br/>
                     (Experimental)   
@@ -149,7 +148,7 @@ const Search = (props) => {
             <br/>
               <Grid container spacing={4} justify="center">
                   {searchResults !== null && searchResults.map((assumption) => <AssumptionCard key={assumption.id} {...assumption}/>)}
-                  {searchResults !== null && searchResults.length === 0 && <h2>No results found.</h2>}
+                  {searchResults !== null && searchResults.length === 0 && <div> <h2>No results found.</h2>you can <Link className={classes.newSourceLink} onClick={()=>newPostClickHandler()}>add a new assumption</Link> to change that.</div>}
               </Grid>
           </Container>
         </div>

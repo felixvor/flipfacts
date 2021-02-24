@@ -158,7 +158,7 @@ const Header = (props) => {
             href: "/search",
         },
         {
-            label: "Top Posts",
+            label: "Browse",
             href: "/browse",
         }
     ];

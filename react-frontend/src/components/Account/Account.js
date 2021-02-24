@@ -40,8 +40,9 @@ const useStyles = makeStyles((theme) => ({
       overflow: 'auto',
     },
     container: {
-      paddingTop: theme.spacing(4),
+      paddingTop: theme.spacing(8),
       paddingBottom: theme.spacing(4),
+      minHeight: "73vh",
     },
   }));
 
@@ -201,7 +202,7 @@ const Account = (props) => {
     return (
 
         <div>   
-            <Container maxWidth="sm" className={classes.container}>
+            <Container maxWidth="sm" className={classes.container} >
                 <Grid item xs={12} md={12}>
                     <Card>
                         <CardContent>

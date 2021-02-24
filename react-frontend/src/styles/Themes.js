@@ -5,8 +5,8 @@ export const brightTheme = {
     breakpoints:{values:{"md":1024}},
   }
   
-  export const darkTheme = {
-    type:"dark",
-    breakpoints:{values:{"md":1024}},
-    primary: {main:blue[400]},
-  }
+export const darkTheme = {
+  type:"dark",
+  breakpoints:{values:{"md":1024}},
+  primary: {main:blue[400]},
+}

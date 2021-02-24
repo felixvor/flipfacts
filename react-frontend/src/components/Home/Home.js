@@ -35,10 +35,11 @@ const useStyles = makeStyles((theme) => ({
 const motds = ["Find scientific sources for your shower thoughts.", 
         "Find and rate assumptions with scientific sources.", 
         "Your place to check if you had the right idea.", 
-        "Don't trust the tabloids? You are at the right place.",
+        //"Don't trust the tabloids? You are at the right place.",
         "Assumptions rated with scientific sources.",
-        "We think voting with credible sources is better than just voting.",
-        "Not in favor of Science-Fake-News since 2021."]
+        //"We think voting with credible sources is better than just voting.",
+        //"Not in favor of Science-Fake-News since 2021."
+      ]
 
 const Home = (props) => {
   const classes = useStyles();

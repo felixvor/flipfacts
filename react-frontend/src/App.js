@@ -25,7 +25,6 @@ import About from './components/About/About';
 
 import axios from 'axios';
 
-
 export class App extends Component {
 
   constructor(props) {
@@ -104,6 +103,7 @@ export class App extends Component {
     const AlreadyLoggedIn = () => <h2>You are already logged in.</h2>
 
 
+
     return (
 
         <div className="App">
@@ -116,27 +116,34 @@ export class App extends Component {
               {/* space for appearing header on top of page: */}
               <div style={{"paddingTop":50}}></div>
               
-              <Route path="/" exact render={(routeProps) => <Home {...routeProps} loggedIn={this.state.loggedIn}/>} />
+              <Route path="/" exact render={(routeProps) => <Home {...routeProps} loggedIn={this.state.loggedIn}/>}>
+              </Route>
+
               <Route path="/new" exact>
-                {this.state.loggedIn && <CreateNew/>}
-                
+                {this.state.loggedIn && <CreateNew/>} 
               </Route>
-              <Route path="/browse" exact> 
-                <Browse/>
-              </Route>
-
-              <Route path="/search/:b64query?" render={(routeProps) => <Search {...routeProps} loggedIn={this.state.loggedIn}/>} />
-
               
-              <Route path="/claims/:id" render={(routeProps) => <Claim {...routeProps} loggedIn={this.state.loggedIn}/>} />
+              <Route path="/browse" exact> 
+                <Browse useDarkTheme={this.state.useDarkTheme}/>
+              </Route>
+
+              <Route path="/search/:b64query?" render={(routeProps) => 
+                  <Search {...routeProps} loggedIn={this.state.loggedIn}/>}>
+              </Route>
+              
+              <Route path="/claims/:id" render={(routeProps) => 
+                  <Claim {...routeProps} loggedIn={this.state.loggedIn}/>}>
+              </Route>
               
               <Route path="/login" exact>
                 {!this.state.loggedIn && <Login loginSuccess={this.loginSuccess}/>}
                 {this.state.loggedIn && <AlreadyLoggedIn/>}
               </Route>
+              
               <Route path="/logout" exact> 
                 <Logout logoutSuccess={this.logoutSuccess}/>
               </Route>
+              
               <Route path="/register" exact>
                 {!this.state.loggedIn && <Register/>}
                 {this.state.loggedIn && <AlreadyLoggedIn/>}
@@ -146,13 +153,14 @@ export class App extends Component {
                 {this.state.loggedIn && <Account/>}
                 {!this.state.loggedIn && <PleaseLogin/>}
               </Route>
+              
               <Route path="/recover" exact>
                 <Recover/>
               </Route>
+              
               <Route path="/about" exact>
                 <About/>
               </Route>
-              
 
               <Footer/>
           </ThemeProvider>
