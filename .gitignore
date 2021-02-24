@@ -3,9 +3,12 @@
 **.log
 
 # Flask
-flask-backend/flipfacts/sqlite.db
 **/__pycache__/
 **/config.py
+flask-backend/flipfacts/sqlite.db
+flask-backend/flipfacts/sqlite.db-journal
+flask-backend/search_index/**
+
 
 # React
 **/.eslintcache
@@ -14,6 +17,5 @@ react-frontend/yarn.lock
 react-frontend/node_modules
 react-frontend/build
 react-frontend/coverageg
+react-frontend/.eslintcache
 
-
-flask-backend/search_index/*
