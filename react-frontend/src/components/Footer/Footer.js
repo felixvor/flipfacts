@@ -17,7 +17,7 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
         {'Copyright © '}
-        <Link color="inherit" href="https://bratp.fun/">
+        <Link color="inherit" href="https://flipfacts.net/">
             FlipFacts
         </Link>{' '}
         {new Date().getFullYear()}

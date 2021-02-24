@@ -31,8 +31,10 @@ class Semantic():
 
         top_k = min(max_results, len(self.corpus_embeddings))
 
+        fflog.debug(f" > Embedding Search Query")
         query_embedding = self.embedder.encode(query, convert_to_tensor=True)
 
+        fflog.debug(f" > Calculating Cos Scores")
         # We use cosine-similarity and torch.topk to find the highest 5 scores
         cos_scores = util.pytorch_cos_sim(query_embedding, self.corpus_embeddings)[0]
         top_results = torch.topk(cos_scores, k=top_k)

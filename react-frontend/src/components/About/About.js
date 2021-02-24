@@ -155,7 +155,7 @@ const About = (props) => {
                         <ul>
                             <li>
                                 <Typography className={classes.blocktext}>
-                                    E-Mail: <Link target="_blank" href="mailto:admin@bratp.fun">admin@bratp.fun</Link>
+                                    E-Mail: <Link target="_blank" href="mailto:admin@flipfacts.net">admin@flipfacts.net</Link>
                                 </Typography>
                             </li>
                             <li>

@@ -129,12 +129,15 @@ const Search = (props) => {
                   <Paper elevation={1} style={{"padding":"8px"}}>
                     <InfoIcon fontSize="small" />
                     <Typography variant="caption text">
-                      <u>Semantic Search:</u>
+                      <u>Semantic Search:</u> 
                     </Typography>
                     <br/>
                     <Typography variant="caption text">
-                        Existing posts are ordered by thematic relevance. This might also show posts that are only slightly related to any of your search inputs. If you don't find what you are looking for you can always <Link className={classes.newSourceLink} onClick={()=>newPostClickHandler()}>add a new assumption</Link> to the list.
+                        Results are filtered less but are ordered by thematic similarity.
+                        {/* If results are only slighty related you can try elaborate your query or you can <Link className={classes.newSourceLink} onClick={()=>newPostClickHandler()}>add a new assumption</Link> yourself. */}
                     </Typography>
+                    <br/>
+                    (Experimental)   
                   </Paper>
                   <br/>
               </Grid>} 
