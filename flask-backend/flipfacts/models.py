@@ -63,7 +63,7 @@ class Source(db.Model):
 
     # TODO: Place on own table where unique=true and migrate:
     identifier = db.Column(db.String(128), nullable=False)
-    title = db.Column(db.String(128), nullable=False)
+    title = db.Column(db.String(512), nullable=False)
     num_citations = db.Column(db.Integer, nullable=False)
     url = db.Column(db.String(350), nullable=False)
 
