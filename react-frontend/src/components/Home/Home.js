@@ -101,12 +101,21 @@ const Home = (props) => {
         <Container className={classes.cardGrid} maxWidth="md">
 
         <Typography component="h2" variant="h4" align="center" color="textSecondary" gutterBottom>
-          Recently updated:
+          Recently Updated:
         </Typography>
         <br/>
         <br/>
           <Grid container spacing={4}>
-            {recentAssumptions?(recentAssumptions.map((assumption) => <AssumptionCard key={assumption.id} {...assumption}/>)):(<h2>Loading...</h2>)}
+            {recentAssumptions?(recentAssumptions.map((assumption) =>
+               <AssumptionCard key={assumption.id}
+                               id={assumption.id}
+                               text={assumption.text}
+                               datePosted={assumption.datePosted}
+                               author={assumption.author}
+                               positiveSources={assumption.positiveSources}
+                               negativeSources={assumption.negativeSources}
+                               />
+                              )):(<h2>Loading...</h2>)}
             <Grid item xs={12} sm={12} md={12}>
               <Button onClick={()=> newPostClickHandler()} variant="outlined" style={{"paddingLeft":"50px", "paddingRight":"50px"}}>post new assumption</Button>
             </Grid>

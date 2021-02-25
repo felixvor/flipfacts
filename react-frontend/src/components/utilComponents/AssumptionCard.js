@@ -45,7 +45,9 @@ const AssumptionCard = (props) => {
                 
                 <Grid item xs={12} className={classes.cardheader}>
                   <Typography>
-                    <i>{props.views} views • posted {props.datePosted}</i>
+                    {false && props.views && <i> {props.views} views • </i>}
+                    {props.datePosted && <i> posted {props.datePosted}</i>}
+                    {props.author && <i> • by {props.author}</i>}
                   </Typography>
                 </Grid>
                 
