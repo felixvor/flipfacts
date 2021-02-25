@@ -120,9 +120,9 @@ def search():
     elif userdata["searchtype"] == "basic":
         results = index.search(userdata["query"])
         for res in results:
-            print("Single basic result:")
-            print(res)
-            print(type(res))
+            fflog.debug("Single basic result:")
+            fflog.debug(res)
+            fflog.debug(type(res))
             search_results.append(assumption2Object(res))
     fflog.info(f"  > 200 found {len(search_results)} results")
     return json.dumps(search_results), 200
@@ -223,7 +223,7 @@ def get_recent():
 def get_top(page):
     per_page = 5
     assumptions = []
-    print(request.args["orderby"])
+    fflog.debug(request.args["orderby"])
     if request.args["orderby"] == "views":
         assumptions = Assumption.query.order_by(Assumption.views.desc()).paginate(page,per_page,error_out=False)
     elif request.args["orderby"] == "new":

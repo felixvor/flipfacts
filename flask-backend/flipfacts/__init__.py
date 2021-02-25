@@ -6,12 +6,12 @@ fflog.setLevel(logging.DEBUG)
 
 file = logging.FileHandler("flipfacts_server.log")
 file.setLevel(logging.DEBUG)
-fileformat = logging.Formatter("%(asctime)s:%(levelname)s:%(message)s",datefmt="%H:%M:%S")
+fileformat = logging.Formatter("%(asctime)s:%(levelname)s:%(message)s")
 file.setFormatter(fileformat)
 fflog.addHandler(file)
 
 stream = logging.StreamHandler()
-stream.setLevel(logging.DEBUG)
+stream.setLevel(logging.INFO)
 streamformat = logging.Formatter("%(asctime)s:%(levelname)s:%(message)s")
 stream.setFormatter(streamformat)
 fflog.addHandler(stream)
@@ -74,11 +74,28 @@ def create_app(config_class=Config):
 
     @app.before_request
     def log_request():
+        print("#### API CALL ####")
+        fflog.info(request.url)
         if current_user.is_anonymous:
-            user=f"{request.remote_addr}: Anonymous"
+            user="$unkown$"
         else:
             user=f"{current_user.username}"
-        fflog.info(f"API REQUEST BY {user}: {request.path}")
+        fflog.info(f"FROM {request.remote_addr} : {user}")
+        if request.access_control_request_headers is not None:
+            fflog.debug(request.access_control_request_headers)
+        if request.access_control_request_method is not None: 
+            fflog.debug(request.access_control_request_method)
+        if request.access_route is not None:
+            fflog.debug(request.access_route)
+        if request.args is not None:
+            fflog.debug(request.args)
+        if request.authorization is not None:
+            fflog.debug(request.authorization)
+        if request.cookies is not None:
+            fflog.debug(request.cookies)
+        if request.headers is not None:
+            fflog.debug(request.headers)
+
         obj = request.json
         if obj != None:
             if "password" in obj.keys():
@@ -88,8 +105,10 @@ def create_app(config_class=Config):
                 obj["password"] = password
             else:
                 fflog.info(f"  > {obj}")
+        
+
         if request.path.startswith('/admin/'):
             if (not current_user.is_authenticated) or (not current_user.is_administrator):
                 return redirect('/')
-   
+
     return app
