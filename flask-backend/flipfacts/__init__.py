@@ -6,13 +6,13 @@ fflog.setLevel(logging.DEBUG)
 
 file = logging.FileHandler("flipfacts_server.log")
 file.setLevel(logging.DEBUG)
-fileformat = logging.Formatter("%(asctime)s:%(levelname)s:%(message)s")
+fileformat = logging.Formatter("%(levelname)s:%(asctime)s:\t%(message)s")
 file.setFormatter(fileformat)
 fflog.addHandler(file)
 
 stream = logging.StreamHandler()
 stream.setLevel(logging.INFO)
-streamformat = logging.Formatter("%(asctime)s:%(levelname)s:%(message)s")
+streamformat = logging.Formatter("%(levelname)s:%(asctime)s:\t%(message)s")
 stream.setFormatter(streamformat)
 fflog.addHandler(stream)
 
@@ -74,13 +74,16 @@ def create_app(config_class=Config):
 
     @app.before_request
     def log_request():
-        print("#### API CALL ####")
+        fflog.info("############### API CALL ###############")
         fflog.info(request.url)
         if current_user.is_anonymous:
-            user="$unkown$"
+            user="guest"
         else:
             user=f"{current_user.username}"
-        fflog.info(f"FROM {request.remote_addr} : {user}")
+        ip = "localhost"
+        if 'X-Real-Ip' in request.headers.keys():
+            ip = request.headers['X-Real-Ip']
+        fflog.info(f"FROM {ip} ({user})")
         if request.access_control_request_headers is not None:
             fflog.debug(request.access_control_request_headers)
         if request.access_control_request_method is not None: 
@@ -94,6 +97,7 @@ def create_app(config_class=Config):
         if request.cookies is not None:
             fflog.debug(request.cookies)
         if request.headers is not None:
+            fflog.debug("Headers:\n")
             fflog.debug(request.headers)
 
         obj = request.json
