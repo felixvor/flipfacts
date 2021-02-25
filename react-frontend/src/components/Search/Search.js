@@ -146,7 +146,7 @@ const Search = (props) => {
           <Container className={classes.cardGrid} maxWidth="md">
             <Divider variant="middle"/>
             <br/>
-              <Grid container spacing={4} justify="center">
+              <Grid container spacing={2} justify="center">
                   {searchResults !== null && searchResults.map((assumption) => <AssumptionCard key={assumption.id} {...assumption}/>)}
                   {searchResults !== null && searchResults.length === 0 && <div> <h2>No results found.</h2>you can <Link className={classes.newSourceLink} onClick={()=>newPostClickHandler()}>add a new assumption</Link> to change that.</div>}
               </Grid>

@@ -59,7 +59,7 @@ const Browse = (props) => {
     const [maxPages, setMaxPages] = useState(1)
     const [assumptions, setAssumptions] = useState(null)
     const [orderBy, setOrderBy] = useState("views")
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     const loadPage = (page) => {
         setLoading(true)
@@ -79,6 +79,9 @@ const Browse = (props) => {
             });
     }
     useEffect(() => {
+        if(loading){
+            return
+        }
         setLoading(true)
         axios({
             method: 'get',
@@ -98,6 +101,9 @@ const Browse = (props) => {
 
 
     const handleNewOrder = (order) =>{
+        if(loading){
+            return
+        }
         setPage(1)
         setOrderBy(order)
     }
@@ -122,7 +128,7 @@ const Browse = (props) => {
     //thanks
 
     return (
-        <Container maxWidth="md" className={classes.container}>
+        <Container maxWidth="md" className={classes.container} >
             <Grid container justify="center">
             <Typography  style={{"paddingBottom":"25px"}} component="h1" variant="h4" align="center" color="textPrimary" gutterBottom>
 
@@ -130,34 +136,45 @@ const Browse = (props) => {
                 <Grid container spacing={2} justify="center">
                     
                         {/* <Breadcrumbs separator="•" aria-label="breadcrumb"> */}
-                            <Grid container justify="center">
-                                <Grid item sm={3} xs={12}>
-                                    <Chip className={orderBy==="views"?selected:notSelected}  
-                                    label="Most Viewed" onClick={()=>handleNewOrder("views")} />
-                                </Grid>  
-                                <Grid item sm={3} xs={12}>  
-                                    <Chip className={orderBy==="new"?selected:notSelected}  
-                                    label="Recently Posted" onClick={()=>handleNewOrder("new")} />
-                                </Grid>
-                                <Grid item sm={3} xs={12}>
-                                    <Chip className={orderBy==="updated"?selected:notSelected}  
-                                    label="Recently Updated" onClick={()=>handleNewOrder("updated")} />
-                                </Grid>
-                                <Grid item sm={3} xs={12}>
-                                    <Chip className={orderBy==="sources"?selected:notSelected}  
-                                    label="Fewest Sources" onClick={()=>handleNewOrder("sources")} />
+                            <Grid item xs={12} sm={8} lg={9}>
+                                <Grid container justify="center">
+                                    <Grid item sm={6} md={6} lg={3} xs={12}>
+                                        <Chip className={orderBy==="views"?selected:notSelected}  
+                                        label="Most Viewed" onClick={()=>handleNewOrder("views")} />
+                                    </Grid>  
+                                    <Grid item sm={6} md={6} lg={3} xs={12}>  
+                                        <Chip className={orderBy==="new"?selected:notSelected}  
+                                        label="Recently Posted" onClick={()=>handleNewOrder("new")} />
+                                    </Grid>
+                                    <Grid item sm={6} md={6} lg={3} xs={12}>
+                                        <Chip className={orderBy==="updated"?selected:notSelected}  
+                                        label="Recently Updated" onClick={()=>handleNewOrder("updated")} />
+                                    </Grid>
+                                    <Grid item sm={6} md={6} lg={3} xs={12}>
+                                        <Chip className={orderBy==="sources"?selected:notSelected}  
+                                        label="Fewest Sources" onClick={()=>handleNewOrder("sources")} />
+                                    </Grid>
                                 </Grid>
                             </Grid>
-
                         {/* </Breadcrumbs> */}
 
 
                     <Grid container style={{"paddingTop":"35px"}} direction="column" justify="center">
-                        <Grid item>                    
-                            {!loading && assumptions?(assumptions.map((assumption) => <AssumptionCard key={assumption.id} {...assumption}/>)):(<><CircularProgress /></>)}
+                        <Grid container spacing={2} justify="center">                    
+                            {!loading &&                   
+                                assumptions?
+                                    assumptions.map((assumption) => (
+                                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                                        <AssumptionCard key={assumption.id} {...assumption}/>
+                                    </Grid>))
+                                    :<CircularProgress />
+                            }
+                                
                         </Grid>
                         <Grid container justify="center" style={{"paddingTop":"35px"}}>                    
-                            {!loading && <Pagination count={maxPages} page={page} showLastButton showFirstButton onChange={(e, page) => handleChangePage(e, page)}/> }
+                            {!loading && 
+                                <Pagination count={maxPages} page={page} showLastButton showFirstButton onChange={(e, page) => handleChangePage(e, page)}/>
+                            }
                         </Grid>
                     
                     </Grid>
