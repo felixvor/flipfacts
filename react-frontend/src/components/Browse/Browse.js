@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     container: {
         paddingTop: theme.spacing(8),
         paddingBottom: theme.spacing(4),
+        minHeight: "73vh",
     },
     chip:{
         height: theme.spacing(6),
@@ -126,27 +127,36 @@ const Browse = (props) => {
             <Typography  style={{"paddingBottom":"25px"}} component="h1" variant="h4" align="center" color="textPrimary" gutterBottom>
 
                Browse Assumptions </Typography>
-                <Grid container spacing={4} justify="center">
-                    <Grid>
-                        <Breadcrumbs separator="•" aria-label="breadcrumb">
-                            <Chip className={orderBy==="views"?selected:notSelected}  
-                            label="Most Viewed" onClick={()=>handleNewOrder("views")} />
-                            
-                            <Chip className={orderBy==="new"?selected:notSelected}  
-                            label="Recently Posted" onClick={()=>handleNewOrder("new")} />
+                <Grid container spacing={2} justify="center">
+                    
+                        {/* <Breadcrumbs separator="•" aria-label="breadcrumb"> */}
+                            <Grid container justify="center">
+                                <Grid item sm={3} xs={12}>
+                                    <Chip className={orderBy==="views"?selected:notSelected}  
+                                    label="Most Viewed" onClick={()=>handleNewOrder("views")} />
+                                </Grid>  
+                                <Grid item sm={3} xs={12}>  
+                                    <Chip className={orderBy==="new"?selected:notSelected}  
+                                    label="Recently Posted" onClick={()=>handleNewOrder("new")} />
+                                </Grid>
+                                <Grid item sm={3} xs={12}>
+                                    <Chip className={orderBy==="updated"?selected:notSelected}  
+                                    label="Recently Updated" onClick={()=>handleNewOrder("updated")} />
+                                </Grid>
+                                <Grid item sm={3} xs={12}>
+                                    <Chip className={orderBy==="sources"?selected:notSelected}  
+                                    label="Fewest Sources" onClick={()=>handleNewOrder("sources")} />
+                                </Grid>
+                            </Grid>
 
-                            <Chip className={orderBy==="updated"?selected:notSelected}  
-                            label="Recently Updated" onClick={()=>handleNewOrder("updated")} />
-
-                            <Chip className={orderBy==="sources"?selected:notSelected}  
-                            label="Fewest Sources" onClick={()=>handleNewOrder("sources")} />
-                        </Breadcrumbs>
-                    </Grid>
+                        {/* </Breadcrumbs> */}
 
 
-                    <Grid container spacing={4} style={{"paddingTop":"35px"}} justify="center">
-                        {!loading && assumptions?(assumptions.map((assumption) => <AssumptionCard key={assumption.id} {...assumption}/>)):(<><CircularProgress /></>)}
-                        <Grid item style={{"paddingTop":"20px"}}>                    
+                    <Grid container style={{"paddingTop":"35px"}} direction="column" justify="center">
+                        <Grid item>                    
+                            {!loading && assumptions?(assumptions.map((assumption) => <AssumptionCard key={assumption.id} {...assumption}/>)):(<><CircularProgress /></>)}
+                        </Grid>
+                        <Grid container justify="center" style={{"paddingTop":"35px"}}>                    
                             {!loading && <Pagination count={maxPages} page={page} showLastButton showFirstButton onChange={(e, page) => handleChangePage(e, page)}/> }
                         </Grid>
                     
