@@ -28,7 +28,7 @@ const Ratingbar = (props) => {
     const score = assumptionScore(props.posSources, props.negSources)
     return (
         <Tooltip arrow title={props.tooltip} aria-label="add"  classes={{ tooltip: classes.tooltipWidth }}>
-            <LinearProgress value={score}  style={{"height":"20px"}} className={classes.ratingbar} classes={{colorPrimary: classes.colorPrimary, barColorPrimary: classes.barColorPrimary}} variant="determinate" />
+            <LinearProgress value={score}  style={{"height":props.height}} className={classes.ratingbar} classes={{colorPrimary: classes.colorPrimary, barColorPrimary: classes.barColorPrimary}} variant="determinate" />
         </Tooltip>
     )
 }

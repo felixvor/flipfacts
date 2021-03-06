@@ -36,6 +36,7 @@ import Report from './Report';
 
 
 
+
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
@@ -150,6 +151,8 @@ const Claim = (props) => {
         return (<h1>Loading...</h1>)
     }
     
+
+
     return (
         <div>
             {inspectedSource !== null && <SourceDialog open={inspectedSource !== null} source={inspectedSource} loggedIn={props.loggedIn} report={handleReportSourceClicked} handleClose={handleCloseSourceDialog}/>}
@@ -188,10 +191,11 @@ const Claim = (props) => {
                                         "{assumption.text}"
                                 </Typography>
                             </Grid>
-                            <br/>
+
                                 <Grid item  xs={12}>
-                                    <Ratingbar posSources={assumption.positiveSources} negSources={assumption.negativeSources} tooltip={"The validity score is derived from the number of sources and their citations."}></Ratingbar>
+                                    <Ratingbar height={24} posSources={assumption.positiveSources} negSources={assumption.negativeSources} tooltip={"The validity score is derived from the number of sources and their citations."}></Ratingbar>
                                 </Grid>
+                                <br/>
                         </CardContent>
                     </Card>
                 </Grid>
