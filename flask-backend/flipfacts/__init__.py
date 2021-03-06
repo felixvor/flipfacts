@@ -79,7 +79,7 @@ def create_app(config_class=Config):
         if current_user.is_anonymous:
             user="guest"
         else:
-            user=f"{current_user.username}"
+            user=f"{current_user.id}:{current_user.username}:{current_user.email}"
         ip = "localhost"
         if 'X-Real-Ip' in request.headers.keys():
             ip = request.headers['X-Real-Ip']
