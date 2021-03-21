@@ -83,6 +83,10 @@ def create_app(config_class=Config):
         ip = "localhost"
         if 'X-Real-Ip' in request.headers.keys():
             ip = request.headers['X-Real-Ip']
+        elif app.config["DEBUG"] is False:
+            fflog.info("No X-Real-Ip: Dropping Request")
+            return "Forbidden", 403
+        
         fflog.info(f"FROM {ip} ({user})")
         if request.access_control_request_headers is not None:
             fflog.debug(request.access_control_request_headers)
@@ -99,6 +103,12 @@ def create_app(config_class=Config):
         if request.headers is not None:
             fflog.debug("Headers:\n")
             fflog.debug(request.headers)
+        if app.config["DEBUG"] is False:
+            if "flipfacts.net" not in request.headers["Host"] or "8000" in request.headers["Host"]:
+                fflog.info("Host not flipfacts.net/: Dropping Request")
+                return "Forbidden", 403
+        
+        
 
         obj = request.json
         if obj != None:
