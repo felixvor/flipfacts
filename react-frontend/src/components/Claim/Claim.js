@@ -28,10 +28,11 @@ import { useEffect } from "react";
 
 import Ratingbar from "../utilComponents/Ratingbar"
 import AssumptionCard from '../utilComponents/AssumptionCard';
-import { Divider, IconButton, Tooltip } from '@material-ui/core';
+import { Dialog, Divider, IconButton, Link, Tooltip } from '@material-ui/core';
 import AddSourceDialog from './AddSourceDialog';
 import SourceDialog from './SourceDialog';
 import Report from './Report';
+import InfoDialog from './InfoDialog';
 
 
 
@@ -87,6 +88,9 @@ const Claim = (props) => {
     const [assumption, setAssumption] = React.useState(null)
     const [similarAssumptions, setSimilarAssumptions] = React.useState(null)
     
+    // inspect assumption info
+    const [openInfo, setOpenInfo] = React.useState(false);
+
     // inspect a source
     const [inspectedSource, setInspectedSource] = React.useState(null);
 
@@ -119,6 +123,11 @@ const Claim = (props) => {
     }, [props.match.params.id])
 
 
+    //dialog to show info
+    const handleInfoClicked = () => {
+        setOpenInfo(true)
+    }
+
     //dialog to add source
     const handleCloseAddSourceDialog = () => {
         setOpenSupp(false);
@@ -135,8 +144,8 @@ const Claim = (props) => {
 
 
     //dialog for reporting
-    const handleReportAssumptionClicked = (assumptionObj) => {
-        setReportAssumption(assumptionObj)
+    const handleReportAssumptionClicked = () => {
+        setReportAssumption(assumption)
     }
     const handleReportSourceClicked = (sourceObj) => {
         setReportSource(sourceObj)
@@ -155,6 +164,8 @@ const Claim = (props) => {
 
     return (
         <div>
+            {openInfo && <InfoDialog assumption={assumption} handleClose={()=>setOpenInfo(false)}/>}
+
             {inspectedSource !== null && <SourceDialog open={inspectedSource !== null} source={inspectedSource} loggedIn={props.loggedIn} report={handleReportSourceClicked} handleClose={handleCloseSourceDialog}/>}
             
             {(reportAssumption !== null || reportSource !== null) && <Report source={reportSource} assumption={reportAssumption} handleClose={handleCloseReport} open={true}></Report>}
@@ -170,23 +181,27 @@ const Claim = (props) => {
                                 <Grid item xs={1} className={classes.cardheader}>
                                     <></>
                                 </Grid>
-                                <Grid item xs={8} className={classes.cardheader} style={{"paddingTop":"15px"}}>
+                                <Grid item xs={10} className={classes.cardheader} style={{"paddingTop":"15px"}}>
                                     <Typography>
-                                        <i>{assumption.views} views • {assumption.datePosted} • by {assumption.author}</i>
+                                        <Link color="inherit" style={{"cursor":"pointer"}} onClick={() => handleInfoClicked(assumption)}>
+                                            <i>posted {assumption.datePosted}</i>
+                                        </Link>
                                     </Typography>
                                 </Grid>
                                 
                                 
                                 <Grid item xs={1} className={classes.cardheader}>
                                     {props.loggedIn &&
-                                    <Tooltip title="Report bad assumption">
-                                        <IconButton onClick={ () => handleReportAssumptionClicked(assumption) }>
-                                            <ReportIcon className={classes.reportIcon}/>
-                                        </IconButton>
-                                    </Tooltip>}
+                                        <Tooltip title="Report bad assumption">
+                                            <IconButton onClick={ () => handleReportAssumptionClicked() }>
+                                                <ReportIcon className={classes.reportIcon}/>
+                                            </IconButton>
+                                        </Tooltip>
+                                    }
+ 
                                 </Grid>
                             </Grid>
-                            <Grid item xs={12} style={{"paddingTop":"40px","paddingBottom":"40px"}}>
+                            <Grid item xs={12} style={{"paddingTop":"20px","paddingBottom":"40px"}}>
                                 <Typography variant="h4" component="h2">
                                         "{assumption.text}"
                                 </Typography>
@@ -279,7 +294,7 @@ const Claim = (props) => {
                     <br/>
                     <br/>
                     <Grid container spacing={4}>
-                        {similarAssumptions?(similarAssumptions.map((assumption) => <AssumptionCard key={assumption.id} {...assumption}/>)):(<h2>Loading...</h2>)}
+                        {similarAssumptions?(similarAssumptions.map((assumption) => <AssumptionCard showDatePosted key={assumption.id} {...assumption}/>)):(<h2>Loading...</h2>)}
                     </Grid>
                 </Container>
             </Grid>

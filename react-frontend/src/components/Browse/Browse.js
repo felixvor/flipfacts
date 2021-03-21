@@ -140,11 +140,11 @@ const Browse = (props) => {
                                 <Grid container justify="center">
                                     <Grid item sm={6} md={6} lg={3} xs={12}>
                                         <Chip className={orderBy==="views"?selected:notSelected}  
-                                        label="Most Viewed" onClick={()=>handleNewOrder("views")} />
+                                        label="Top Posts" onClick={()=>handleNewOrder("views")} />
                                     </Grid>  
                                     <Grid item sm={6} md={6} lg={3} xs={12}>  
                                         <Chip className={orderBy==="new"?selected:notSelected}  
-                                        label="Recently Posted" onClick={()=>handleNewOrder("new")} />
+                                        label="Recently Added" onClick={()=>handleNewOrder("new")} />
                                     </Grid>
                                     <Grid item sm={6} md={6} lg={3} xs={12}>
                                         <Chip className={orderBy==="updated"?selected:notSelected}  
@@ -165,7 +165,7 @@ const Browse = (props) => {
                                 assumptions?
                                     assumptions.map((assumption) => (
                                     <Grid item xs={12} sm={12} md={12} lg={12}>
-                                        <AssumptionCard key={assumption.id} {...assumption}/>
+                                        <AssumptionCard showDatePosted key={assumption.id} {...assumption}/>
                                     </Grid>))
                                     :<CircularProgress />
                             }

@@ -88,7 +88,7 @@ class Report(db.Model):
     def __repr__(self):
         type = "source" if self.assumption_id==None else "assumption"
         type_id = self.source_id if self.assumption_id==None else self.assumption_id
-        return f"Report ID {self.id} for {type} {type_id}: (by id='{self.posted_by}', {self.date_posted}', '{self.comment}')"
+        return f"Report ID {self.id} for {type} {type_id}: (by id='{self.posted_by}', {self.date_posted}', '{self.user_comment}')"
 
 
 def create_db(db):
