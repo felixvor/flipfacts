@@ -7,6 +7,7 @@ import axios from 'axios';
 import Chip from '@material-ui/core/Chip';
 
 import AssumptionCard from "../utilComponents/AssumptionCard"
+import { Helmet } from 'react-helmet';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -129,6 +130,10 @@ const Browse = (props) => {
 
     return (
         <Container maxWidth="md" className={classes.container} >
+            <Helmet>
+                <title>{`FlipFacts - Browse`}</title>
+                <meta name="description" content={`Browse the latest and most viewed assumptions of FlipFacts.net - Search and Find scientific sources for everyday assumptions on FlipFacts.net Search everyday thoughts and find relevant sources quick and easy. Create an account and post your own ideas and add new sources!`}/>
+            </Helmet>
             <Grid container justify="center">
             <Typography  style={{"paddingBottom":"25px"}} component="h1" variant="h4" align="center" color="textPrimary" gutterBottom>
 
@@ -140,7 +145,7 @@ const Browse = (props) => {
                                 <Grid container justify="center">
                                     <Grid item sm={6} md={6} lg={3} xs={12}>
                                         <Chip className={orderBy==="views"?selected:notSelected}  
-                                        label="Top Posts" onClick={()=>handleNewOrder("views")} />
+                                        label="Most Viewed" onClick={()=>handleNewOrder("views")} />
                                     </Grid>  
                                     <Grid item sm={6} md={6} lg={3} xs={12}>  
                                         <Chip className={orderBy==="new"?selected:notSelected}  

@@ -28,11 +28,12 @@ import { useEffect } from "react";
 
 import Ratingbar from "../utilComponents/Ratingbar"
 import AssumptionCard from '../utilComponents/AssumptionCard';
-import { Dialog, Divider, IconButton, Link, Tooltip } from '@material-ui/core';
+import { Divider, IconButton, Link, Tooltip } from '@material-ui/core';
 import AddSourceDialog from './AddSourceDialog';
 import SourceDialog from './SourceDialog';
 import Report from './Report';
 import InfoDialog from './InfoDialog';
+import { Helmet } from 'react-helmet';
 
 
 
@@ -160,10 +161,14 @@ const Claim = (props) => {
         return (<h1>Loading...</h1>)
     }
     
-
+    const numSources = assumption.positiveSources.length + assumption.negativeSources.length
 
     return (
         <div>
+            <Helmet>
+                <title>{`FlipFacts - "${assumption.text}"`}</title>
+                <meta name="description" content={`"${assumption.text}" - Is that true? Find scientific sources for this and many other everyday assumptions on FlipFacts.net Search everyday thoughts and find relevant sources quick and easy. Create an account and post your own ideas and add new sources!`}/>
+            </Helmet>
             {openInfo && <InfoDialog assumption={assumption} handleClose={()=>setOpenInfo(false)}/>}
 
             {inspectedSource !== null && <SourceDialog open={inspectedSource !== null} source={inspectedSource} loggedIn={props.loggedIn} report={handleReportSourceClicked} handleClose={handleCloseSourceDialog}/>}

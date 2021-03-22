@@ -28,6 +28,7 @@ import axios from 'axios';
 import { useEffect } from "react";
 import { IconButton, ListItemSecondaryAction, Tooltip } from '@material-ui/core';
 import { useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 
 
@@ -201,7 +202,11 @@ const Account = (props) => {
 
     return (
 
-        <div>   
+        <div>
+            <Helmet>
+                <title>{`FlipFacts - Account`}</title>
+                <meta name="description" content={`Edit your FlipFacts.net Account - Search and Find scientific sources for everyday assumptions on FlipFacts.net Search everyday thoughts and find relevant sources quick and easy. Create an account and post your own ideas and add new sources!`}/>
+            </Helmet>
             <Container maxWidth="sm" className={classes.container} >
                 <Grid item xs={12} md={12}>
                     <Card>

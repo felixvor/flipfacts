@@ -12,6 +12,8 @@ import InfoIcon from '@material-ui/icons/Info';
 import Switch from '@material-ui/core/Switch';
 import LoginOrRegister from '../utilComponents/LoginOrRegister';
 
+import {Helmet} from 'react-helmet'
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -91,6 +93,10 @@ const Search = (props) => {
 
   return (
   <Container component="main" maxWidth="md" style={{"min-height":"73vh"}}>
+        <Helmet>
+          <title>FlipFacts - Search</title>
+          <meta name="description" content="Use direct and Semantic Search on FlipFacts.net to find what you are looking for! Search and Find scientific sources for everyday assumptions on FlipFacts.net Search everyday thoughts and find relevant sources quick and easy. Create an account and post your own ideas and add new sources!"/>
+        </Helmet>
         <LoginOrRegister
           open={loginOrRegisterShow}
           title={<>Account needed</>}
@@ -147,7 +153,7 @@ const Search = (props) => {
             <Divider variant="middle"/>
             <br/>
               <Grid container spacing={2} justify="center">
-                  {searchResults !== null && searchResults.map((assumption) => <AssumptionCard key={assumption.id} {...assumption}/>)}
+                  {searchResults !== null && searchResults.map((assumption) => <AssumptionCard showDatePosted key={assumption.id} {...assumption}/>)}
                   {searchResults !== null && searchResults.length === 0 && <div> <h2>No results found.</h2>you can <Link className={classes.newSourceLink} onClick={()=>newPostClickHandler()}>add a new assumption</Link> to change that.</div>}
               </Grid>
           </Container>

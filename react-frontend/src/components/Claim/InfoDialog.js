@@ -1,4 +1,4 @@
-import { Dialog, TextField, DialogContent, DialogContentText, DialogActions, Button, DialogTitle, Grid, List, ListItem, ListItemText, Popover, Typography, ListItemAvatar, Avatar } from "@material-ui/core";
+import { Dialog, DialogContent, List, ListItem, ListItemText, ListItemAvatar, Avatar } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 
 import TodayIcon from '@material-ui/icons/Today';

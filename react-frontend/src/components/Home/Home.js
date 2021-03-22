@@ -15,6 +15,7 @@ import SearchBar from "../utilComponents/SearchBar"
 
 
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 
 
@@ -75,6 +76,10 @@ const Home = (props) => {
 
   return (
     <React.Fragment>
+      <Helmet>
+          <title>{`FlipFacts - Home`}</title>
+          <meta name="description" content={`HomePage of FlipFacts.net - Search and Find scientific sources for everyday assumptions on FlipFacts.net Search everyday thoughts and find relevant sources quick and easy. Create an account and post your own ideas and add new sources!`}/>
+      </Helmet>
       <LoginOrRegister
         open={loginOrRegisterShow}
         title={<>Account needed</>}
@@ -107,7 +112,9 @@ const Home = (props) => {
         <br/>
           <Grid container spacing={4}>
             {recentAssumptions?(recentAssumptions.map((assumption) =>
-               <AssumptionCard key={assumption.id}
+               <AssumptionCard 
+                               showDatePosted
+                               key={assumption.id}
                                id={assumption.id}
                                text={assumption.text}
                                datePosted={assumption.datePosted}
