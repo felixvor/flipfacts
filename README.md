@@ -8,6 +8,21 @@ FlipFacts is a website where you can post and rate short statements. However, ra
 ```
 then host the result from the build folder with nginx or apache
 
+
+## Backend
+Development Server:
+```
+ cd flask-backend
+ python run.py
+```
+`gunicorn` is recommended for productive environment
+``` 
+cd flask-backend
+gunicorn [workers, threads, port, forward-ips, timeout, ...] run:app 
+```
+
+
+
 the frontend will send requests to the /api/ route. make sure your server forwards /api/ to the port of the backend
 there is also an admin panel on /admin/ hosted by the backend. the user has to be logged into an admin account to access.
 
@@ -25,14 +40,14 @@ server {
    }
 
    location /api/ {
-    	  proxy_pass http://localhost:8000;
+    	  proxy_pass http://localhost:7600;
 	  proxy_set_header Host $host;
        	  proxy_set_header X-Real-IP $remote_addr;
        	  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
        	  client_max_body_size 1M;
    }
    location /admin/ {
-    	  proxy_pass http://localhost:8000;
+    	  proxy_pass http://localhost:7600;
 	  proxy_set_header Host $host;
        	  proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -44,16 +59,4 @@ server {
    # on port 80 return 301 redirect to https (:443)
 }
 
-```
-
-## Backend
-Development Server:
-```
- cd flask-backend
- python run.py
-```
-`gunicorn` is recommended for productive environment
-``` 
-cd flask-backend
-gunicorn [workers, threads, port, forward-ips, timeout, ...] run:app 
 ```
