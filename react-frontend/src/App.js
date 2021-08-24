@@ -82,12 +82,6 @@ export class App extends Component {
     this.setState({"loggedIn":false})
   }
 
-
-  
-
-  
-
-
   render() {
     console.log("RERENDER APP")
     // axios.get("/test").then(res => {

@@ -10,16 +10,19 @@ class Semantic():
         self.lock = threading.Lock()
         
         self.document_ids = []
-        self.corpus_embeddings = torch.empty([0, 768])
+        # self.corpus_embeddings = torch.empty([0, 768]) #roberta
+        
+        self.corpus_embeddings = torch.empty([0, 384]) #minilm
 
         fflog.info("Loading NLP model...")
-        self.embedder = SentenceTransformer('paraphrase-distilroberta-base-v1')
+        # self.embedder = SentenceTransformer('paraphrase-distilroberta-base-v1')
+        self.embedder = SentenceTransformer("paraphrase-MiniLM-L6-v2")
         fflog.info("Done.")
 
     def add_document(self, doc_id, text):
         embedding = self.embedder.encode(text, convert_to_tensor=True)
-        
         embedding = embedding[None, :] # change the shape from 768 to [1, 768]
+
         self.lock.acquire(blocking=True, timeout=-1)
         self.corpus_embeddings = torch.cat([self.corpus_embeddings, embedding], axis=0) # tells the torch that we need to concatenate over the last dimension
         self.document_ids.append(doc_id)
@@ -57,6 +60,6 @@ class Semantic():
             fflog.info("Embedding Documents from DB...")
             for assumption in assumptions: # TODO: skip if embedding is already set, but add embedding to matrix
                 self.add_document(doc_id=assumption.id, text=assumption.text)
-            fflog.info("Done.")      
+            fflog.info("Done.")
 
 
