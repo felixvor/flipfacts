@@ -8,7 +8,7 @@ Implemented:
 - User login and registration with EMail verification
 - Profile (edit username, password)
 - Users can post new statements
-- Users can rate statements by submitting DOIs (or other identifier) of valid publication (shoutout to the semanticscholar API)
+- Users can rate statements by submitting DOIs (or other identifier) of valid publication (shoutout to the free semanticscholar API)
 - Logged in users can report bad statements and spam
 - Logged in users can report bad sources
 - Logged in admins can access moderation page and check reports
@@ -23,8 +23,6 @@ Possible ToDos:
 - Server Side Rendering with next.js (meta descriptions for better link previews)
 - Better Profile page that shows your own posts and submitted sources
 - Commenting or discussion section for statement-phrasing and source quality
-
-
 
 ## React Frontend
 ```
