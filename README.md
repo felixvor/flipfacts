@@ -4,6 +4,28 @@ The project is not maintained at the moment. It was mainly used as a full stack 
 # flipfacts
 FlipFacts is a website where you can post and rate short statements. However, rating does not just happen based on gut feeling: for each positive or negative rating you must provide a scholarly source that supports or contradicts the statement you want to rate.
 
+Implemented:
+- User login and registration with EMail verification
+- Profile (edit username, password)
+- Users can post new statements
+- Users can rate statements by submitting DOIs (or other identifier) of valid publication (shoutout to the semanticscholar API)
+- Logged in users can report bad statements and spam
+- Logged in users can report bad sources
+- Logged in admins can access moderation page and check reports
+- Working tfidf based search
+- Working semantic similarity search (shoutout to sentence-transformers)
+- Similar posts based on semantic similarity
+- 'Browse' page to access and order all existing posts
+- Fully responsive and mobile friendly
+
+Possible ToDos: 
+- Update source metrics regulary (like num citations) 
+- Server Side Rendering with next.js (meta descriptions for better link previews)
+- Better Profile page that shows your own posts and submitted sources
+- Commenting or discussion section for statement-phrasing and source quality
+
+
+
 ## React Frontend
 ```
  cd react-frontend
