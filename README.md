@@ -14,35 +14,35 @@ there is also an admin panel on /admin/ hosted by the backend. the user has to b
 -NGINX example config:
 ```
 server {
-	listen 443;
-	listen [::]:443;	
-	root /var/www/flipfacts;
-	index index.html;
-	server_name flipfacts.net www.flipfacts.net; 
-        location / {
+   listen 443;
+   listen [::]:443;	
+   root /var/www/flipfacts;
+   index index.html;
+   server_name flipfacts.net www.flipfacts.net; 
+   location / {
 	  root /var/www/flipfacts;
 	  try_files $uri /index.html;
-	}
+   }
 
-	location /api/ {
-    		proxy_pass http://localhost:8000;
-    		proxy_http_version 1.1;
-		    proxy_set_header Host $host;
-       	proxy_set_header X-Real-IP $remote_addr;
-       	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-       	client_max_body_size 2M;
-	}
-  location /admin/ {
-    		proxy_pass http://localhost:8000;
-    		proxy_http_version 1.1;
-		    proxy_set_header Host $host;
-       	proxy_set_header X-Real-IP $remote_addr;
-       	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-	}
-  ssl on;
-  ssl_certificate ...
-  ssl_certificate_key ...
-  # on port 80 return 301 redirect to https (:443)
+   location /api/ {
+    	  proxy_pass http://localhost:8000;
+    	  proxy_http_version 1.1;
+	  proxy_set_header Host $host;
+       	  proxy_set_header X-Real-IP $remote_addr;
+       	  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       	  client_max_body_size 2M;
+   }
+   location /admin/ {
+    	  proxy_pass http://localhost:8000;
+    	  proxy_http_version 1.1;
+	  proxy_set_header Host $host;
+       	  proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+   }
+   ssl on;
+   ssl_certificate ...
+   ssl_certificate_key ...
+   # on port 80 return 301 redirect to https (:443)
 }
 
 ```
