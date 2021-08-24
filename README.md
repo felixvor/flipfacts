@@ -1,3 +1,6 @@
+The project is not maintained at the moment. It was mainly used as a full stack learning experience. You might find a running version on https://flipfacts.net but it will probably go offline when the next server bill is due.
+
+
 # flipfacts
 FlipFacts is a website where you can post and rate short statements. However, rating does not just happen based on gut feeling: for each positive or negative rating you must provide a scholarly source that supports or contradicts the statement you want to rate.
 
